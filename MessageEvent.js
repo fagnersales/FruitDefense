@@ -5,7 +5,7 @@ const State = require('./State')
 const welcomeChannelSet = require('./methods/welcome/set')
 const welcomeChannelRemove = require('./methods/welcome/remove')
 
-const suggestionChannels = require('./methods/suggestion')
+const suggestionChannelsSend = require('./methods/suggestion/index')
 const suggestionChannelSet = require('./methods/suggestion/set')
 const suggestionChannelRemove = require('./methods/suggestion/remove')
 const suggestionChannelEmojis = require('./methods/suggestion/emojis')
@@ -46,7 +46,7 @@ async function run(message) {
         }
 
         if (commandName === 'suggestion') {
-            if (!args[0]) suggestionChannels(message, args)
+            if (!args[0]) suggestionChannelsSend(message, args)
             if (args[0] === 'set') suggestionChannelSet(message, args)
             if (args[0] === 'remove') suggestionChannelRemove(message, args)
             if (args[0] === 'emojis') suggestionChannelEmojis(message, args)
