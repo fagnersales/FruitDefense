@@ -21,8 +21,16 @@ const get = key => {
     return data[key]
 }
 
+const push = (key, values) => {
+    const data = read()
+    if (!Array.isArray(values)) values = [values]
+    data[key] = data[key] ? [...data[key], ...values] : values
+    save(data)
+}
+
 module.exports = {
     set,
     remove,
-    get
+    get,
+    push
 }

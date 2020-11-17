@@ -9,25 +9,22 @@ const f = require('../general/randomFruit')
  * @param {String[]} args 
  */
 function set(message, args) {
-    const suggestionChannelID = State.get('suggestionChannel')
+    const suggestionChannels = State.get('suggestionChannels')
 
     if (!args[1]) {
-        return message.channel.send(`${f()} Informe o novo canal de sugestões!`)
+        return message.channel.send(`${f()} Informe o(s) canal(is) para sugestões!`)
     }
 
-    const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[1])
+    const channels = message.mentions.channels.array()
 
-    if (!channel) {
-        return message.channel.send(`${f()} Não pude encontrar o canal informado.`)
-    }
+    if (!channels) return message.channel.send(`${f()} Mencione o(s) canal(is) para ser(em) configurado(s)!`)
 
-    if (suggestionChannelID && suggestionChannelID === channel.id) {
-        return message.channel.send(`${f()} Este canal já está configurado para \`sugestão\`.`)
-    }
-
-    State.set('suggestionChannel', channel.id)
-
-    return message.channel.send(`${f()} Parabéns, o canal ${channel} agora está configurado para \`sugestão\`!`)
+    channels
+    .filter(channel => !(suggestionChannels || []).includes(channel.id))
+    .map(channel => {
+        message.channel.send(`${f()} ${channel} Foi configurado para sugestões!`)
+        State.push('suggestionChannels', channel.id)
+    })
 
 }
 
