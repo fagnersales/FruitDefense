@@ -21,7 +21,7 @@ client.on('guildMemberAdd', member => {
 
 })
 
-const MessageEvent = require('./messageEvent.js')
+const MessageEvent = require('./MessageEvent.js')
 client.on('message', MessageEvent)
 
 client.login(process.env.TOKEN)
