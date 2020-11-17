@@ -9,6 +9,9 @@ const suggestionChannelSet = require('./methods/suggestion/set')
 const suggestionChannelRemove = require('./methods/suggestion/remove')
 const suggestionChannelEmojis = require('./methods/suggestion/emojis')
 
+const stateReset = require('./methods/state/reset')
+const stateSend = require('./methods/state/send')
+
 /**
  * @param {Message} message
  */
@@ -36,6 +39,11 @@ function run(message) {
             if (args[0] === 'set') suggestionChannelSet(message, args)
             if (args[0] === 'remove') suggestionChannelRemove(message, args)
             if (args[0] === 'emojis') suggestionChannelEmojis(message, args)
+        }
+
+        if (commandName === 'state') {
+            if (args[0] === 'send') stateSend(message, args)
+            if (args[0] === 'reset') stateReset(message, args)
         }
     }
 }
