@@ -16,7 +16,7 @@ client.on('guildMemberAdd', member => {
 
     if (welcomeChannelID) {
         client.channels.fetch(welcomeChannelID)
-        .then(channel => channel.send(`Bem-vindo(a) ao Fruit World :grapes:, ${member}`))
+        .then(channel => channel.send(`Bem-vindo(a) ao Fruit World ${f()}, ${member}`))
     }
 
 })
