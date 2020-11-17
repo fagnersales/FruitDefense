@@ -1,7 +1,6 @@
-const {  Message } = require('discord.js')
-const { writeFileSync } = require('fs')
+const { Message } = require('discord.js')
 
-const { join } = require('path')
+const State = require('../../State')
 const f = require('../general/randomFruit')
 
 /**
@@ -9,10 +8,7 @@ const f = require('../general/randomFruit')
  * @param {Message} message 
  */
 function reset(message) {
-    const path = join(__dirname, '..', '..', 'State', 'data.json')
-
-    writeFileSync(path, '{}')
-
+    State.reset()
     return message.channel.send(`${f()} Banco de dados resetado.`)
 
 }

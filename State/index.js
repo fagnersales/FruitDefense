@@ -28,9 +28,12 @@ const push = (key, values) => {
     save(data)
 }
 
+const reset = () => set({})
+
 module.exports = {
     set,
     remove,
     get,
-    push
+    push,
+    reset
 }
