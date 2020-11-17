@@ -16,9 +16,18 @@ const stateSend = require('./methods/state/send')
 /**
  * @param {Message} message
  */
-function run(message) {
+async function run(message) {
 
     if (!message.member.permissions.has('ADMINISTRATOR') || message.channel.type === 'dm' || message.author.bot) return
+
+    const suggestionChannels = State.get('suggestionChannels')
+
+    if (suggestionChannels && suggestionChannels.includes(message.channel.id)) {
+        const emojis = [State.get('suggestionEmoji1') || '👍', State.get('suggestionEmoji2') || '👎']
+
+        for (const emoji of emojis) await message.react(emoji)
+        return
+    }
 
     const prefix = 'fruit.'
 
@@ -48,6 +57,8 @@ function run(message) {
             if (args[0] === 'reset') stateReset(message, args)
         }
     }
+
+
 }
 
 module.exports = run
