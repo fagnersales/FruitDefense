@@ -18,8 +18,6 @@ const stateSend = require('./methods/state/send')
  */
 async function run(message) {
 
-    if (!message.member.permissions.has('ADMINISTRATOR') || message.channel.type === 'dm' || message.author.bot) return
-
     const suggestionChannels = State.get('suggestionChannels')
 
     if (suggestionChannels && suggestionChannels.includes(message.channel.id)) {
@@ -29,8 +27,10 @@ async function run(message) {
         return
     }
 
+    if (!message.member.permissions.has('ADMINISTRATOR') || message.channel.type === 'dm' || message.author.bot) return
+    
     const prefix = 'fruit.'
-
+    
     if (message.content.startsWith(prefix)) {
 
         const commandName = message.content.slice(prefix.length).split(' ')[0].toLowerCase()
