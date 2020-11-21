@@ -3,6 +3,8 @@ const { readFileSync } = require('fs')
 
 const { join } = require('path')
 
+const f = require('../general/randomFruit')
+
 /**
  * 
  * @param {Message} message 
@@ -12,7 +14,13 @@ function send(message) {
 
     const StateDataBuffer = readFileSync(path)
 
-    message.channel.send(new MessageAttachment(StateDataBuffer, 'data.json'))
+    const tooLarge = Buffer.from(StateDataBuffer).toString('utf-8').length > 1500
+
+    if (tooLarge) {
+        message.channel.send(f(), new MessageAttachment(StateDataBuffer, 'data.json'))
+    } else {
+        message.channel.send(`${f()} \`\`\`js\n${readFileSync(path, 'utf-8')}\`\`\``)
+    }
 
 }
 
